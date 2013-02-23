@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Build zipfile distribution of gnome-mime-data for Win32. Run after
+# make install.
+
+# No, I don't claim that it will necessarily make much sense having a
+# gnome-mime-data package for Win32. This is just for completeness as
+# many GNOME libraries depend in their configure.in on
+# gnome-mime-data, and as for now it's easiest to have it installed
+# when building them. But very likely the users of gnome-mime-data
+# will eventually have code to use more native Win32 mechanisms for
+# the function that gnome-mime-data has on a Unix
+# system. --tml@novell.com
+
+ZIP=/tmp/gnome-mime-data-@VERSION@.zip
+
+cd @prefix@
+rm $ZIP
+
+zip $ZIP -@ <<EOF
+etc/gnome-vfs-mime-magic
+lib/pkgconfig/gnome-mime-data-2.0.pc
+share/application-registry/gnome-vfs.applications
+share/mime-info/gnome-vfs.mime
+EOF
